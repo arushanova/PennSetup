@@ -1,0 +1,38 @@
+/rat/db/set DETECTOR geo_file "SnoPennSetup_bismsb.geo"
+/rat/db/set DETECTOR pmt_info_file "SPECTRE_PMTINFO.ratdb"
+
+/rat/db/load PMT.ratdb
+/rat/db/load PMT_OPTICAL_PARAMETERS.ratdb
+/rat/db/load PMTTRANSIT.ratdb
+/rat/db/load MATERIALS.ratdb
+/rat/db/load OPTICS.ratdb
+/rat/db/load SURFACES.ratdb
+
+/rat/db/load EFFECTIVE_VELOCITY_Te_bisMSB.ratdb
+/rat/db/load ET1D_Te_bisMSB.ratdb
+/rat/db/load FIT_ENERGY_FUNCTIONAL_Te_bisMSB.ratdb
+/rat/db/load FIT_ENERGY_LOOKUP_Te_bisMSB.ratdb
+/rat/db/load FIT_QUAD_Te_bisMSB.ratdb
+/rat/db/load MATERIALS_Te_bisMSB.ratdb
+/rat/db/load OPTICS_Te_bisMSB.ratdb
+
+/rat/db/set PMTCALIB use_qhs_hhp 0
+
+/run/initialize
+
+# BEGIN EVENT LOOP
+/rat/proc count
+/rat/procset update 1
+
+/rat/proc outroot
+/rat/procset file "Y90_2snopmt_bismsb.root"
+
+# END EVENT LOOP
+/generator/add combo decay0:fill:uniform
+/generator/vtx/set backg Y90 
+
+/generator/pos/set -190.0 20.0 -180.5
+/generator/rate/set 1
+
+/rat/run/start 10000
+exit
